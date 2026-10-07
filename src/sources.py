@@ -1,6 +1,6 @@
 import requests
 
-class sources: 
+class Sources: 
         
     def fetch_records(url):
         """Download the records and return them as Python objects."""
