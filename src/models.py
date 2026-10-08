@@ -1,13 +1,8 @@
-import json
-from pathlib import Path
 from sources import fetch_records
-from aggregations import shows_per_genre, total_shows, average_rating_language
+from report import build_summary, write_summary
+from config import SOURCE_URL, OUTPUT
 
 class Models:
-
-
-
-
 
     def main():
         records = fetch_records(SOURCE_URL)
