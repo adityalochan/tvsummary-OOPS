@@ -154,8 +154,10 @@ tvsummary-OOPS/
 ├── .gitignore
 ├── main.py
 ├── data/
-│   └── .gitkeep
-│   └── summary.json
+│   ├── raw/
+│   │   └── .gitkeep
+│   └── processed/
+│       └── summary.json
 ├── src/
 │   └── tvsummary/
 │       ├── __init__.py
