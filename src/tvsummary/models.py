@@ -1,17 +1,21 @@
-from sources import fetch_records
-from report import build_summary, write_summary
-from config import SOURCE_URL, OUTPUT
+from tvsummary.sources import fetch_records
+from tvsummary.report import build_summary, write_summary
+from tvsummary.config import SOURCE_URL, OUTPUT
 
-class Models:
+class TVShow:
+    """Represent one TV show with cleaned data."""
 
-    def main():
-        records = fetch_records(SOURCE_URL)
+    def __init__(self, record):
+        self.name = record.get("name") or "Unknown"
+        self.language = record.get("language") or "Unknown"
 
-        if not records:
-            print("No records were downloaded")
-            return
-        summary = build_summary(records)
-        write_summary(summary, OUTPUT)
+        genres = record.get("genres")
+        self.genres = genres if isinstance(genres, list) else []
 
-    if __name__ == "__main__":
-        main()
+        rating = record.get("rating") or {}
+        average = rating.get("average") if isinstance(rating, dict) else None
+        self.rating = average if isinstance(average, (int, float)) else None
+
+    def __str__(self):
+        """Return a readable description of the TV show."""
+        return f"{self.name} ({self.language})"
