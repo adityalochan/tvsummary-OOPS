@@ -1,5 +1,5 @@
 import requests
-from src.config import TIMEOUT
+from tvsummary.config import TIMEOUT
         
 def fetch_records(url):
     """Download the records and return them as Python objects."""

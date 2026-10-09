@@ -1,12 +1,12 @@
 import json
 
-from src.config import SOURCE_URL
-from src.aggregations import (
+from tvsummary.config import SOURCE_URL
+from tvsummary.aggregations import (
     shows_per_genre,
     total_shows,
     average_rating_language
 )
-from src.aggregations import unique_languages
+from tvsummary.aggregations import unique_languages
 
 def build_summary(records):
     """Combine the aggregations into one dict ready to write."""

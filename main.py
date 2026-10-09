@@ -1,7 +1,6 @@
-from src.config import TIMEOUT
-from src.config import SOURCE_URL, OUTPUT
-from src.sources import fetch_records
-from src.report import build_summary, write_summary
+from tvsummary.config import SOURCE_URL, OUTPUT
+from tvsummary.sources import fetch_records
+from tvsummary.report import build_summary, write_summary
 
 def main():
     """Fetch TV shows and generate the summary."""
