@@ -8,38 +8,76 @@ Each record represents a TV show and contains information such as the show's nam
 
 ## Setup
 
-This project requires Python 3.11 and uses the TVMaze API.
+This project requires Python 3.11, Conda, and an internet connection to access the TVMaze API.
 
-Clone the repository and open the project directory:
+### 1. Clone the repository
+
+Clone the GitHub repository and navigate to the project directory:
+
 ```bash
 git clone https://github.com/adityalochan/tvsummary-OOPS.git
 cd tvsummary-OOPS
 ```
 
-Create and activate a Python virtual environment:
+### 2. Create the Conda environment
 
-**macOS / Linux**
+Create the environment using the provided `environment.yml` file:
+
 ```bash
-python -m venv .venv
-source .venv/bin/activate # Windows: .venv\Scripts\activate
+conda env create -f environment.yml
 ```
 
-**Windows PowerShell**
-```
-.venv/bin/activate # Windows: .venv\Scripts\activate
+### 3. Activate the Conda environment
+
+```bash
+conda activate tvsummary
 ```
 
-Install the dependencies and local Python packages: 
-```
+### 4. Install the dependencies
+
+Install the pinned dependencies from `requirements.txt`:
+
+```bash
 python -m pip install -r requirements.txt
+```
+
+### 5. Install the local Python package
+
+Install the `tvsummary` package in editable mode:
+
+```bash
 python -m pip install -e .
 ```
 
+### 6. Verify the package installation
+
+Check that Python can import the installed package:
+
+```bash
+python -c "import tvsummary; print(tvsummary.__file__)"
+```
+
+The command should display the path to `src/tvsummary/__init__.py` without an import error.
+
 ## Run
+
 Run the program from the project root directory:
+
 ```bash
 python main.py
 ```
+
+The program downloads TV show records from the TVMaze API, calculates the aggregations, and writes the results to `summary.json`.
+
+## Test
+
+Run the offline unit tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+The tests use sample records and do not require an internet connection.
 
 The program downloads TV show records, calculates the aggregations, and writes the results to summary.json.
 
