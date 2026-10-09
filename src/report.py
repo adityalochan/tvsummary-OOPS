@@ -1,7 +1,7 @@
 import json
 
-from src.tvsummary.config import SOURCE_URL
-from src.tvsummary.aggregations import (
+from src.config import SOURCE_URL
+from src.aggregations import (
     shows_per_genre,
     total_shows,
     average_rating_language
