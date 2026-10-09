@@ -1,4 +1,3 @@
-from tvsummary.sources import fetch_records
 from tvsummary.report import build_summary, write_summary
 from tvsummary.config import SOURCE_URL, OUTPUT
 

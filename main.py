@@ -1,10 +1,10 @@
 from tvsummary.config import SOURCE_URL, OUTPUT
-from tvsummary.sources import fetch_records
+from tvsummary.sources import TVMazeSource
 from tvsummary.report import build_summary, write_summary
 
 def main():
     """Fetch TV shows and generate the summary."""
-    records = fetch_records(SOURCE_URL)
+    records = TVMazeSource(SOURCE_URL).fetch_records()
 
     if not records:
         print("No records were downloaded")
