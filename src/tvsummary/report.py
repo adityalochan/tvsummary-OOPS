@@ -2,22 +2,29 @@ import json
 
 from tvsummary.config import SOURCE_URL
 from tvsummary.aggregations import (
-    shows_per_genre,
-    total_shows,
-    average_rating_language
+    TotalShows,
+    ShowsPerGenre,
+    AverageRatingLanguage,
+    UniqueLanguages,
 )
-from tvsummary.aggregations import unique_languages
 
 def build_summary(records):
-    """Combine the aggregations into one dict ready to write."""
-    summary = {}
-    summary["url"] = SOURCE_URL
-    summary["shows_per_genre"] = shows_per_genre(records)
-    summary["total_shows"] = total_shows(records)
-    summary["average_rating_language"] = average_rating_language(records)
-    summary["unique_languages"] = sorted(unique_languages(records))    
+    """Build a summary using aggregation objects."""
+    summary = {"url": SOURCE_URL}
+
+    aggregations = [
+        ShowsPerGenre(),
+        TotalShows(),
+        AverageRatingLanguage(),
+        UniqueLanguages(),
+    ]
+
+    for aggregation in aggregations:
+        summary[aggregation.name] = aggregation.calculate(records)
+
     return summary
 
-def write_summary(summary,path):
+
+def write_summary(summary, path):
     """Write the summary to a JSON file."""
     path.write_text(json.dumps(summary, indent=2), encoding="utf-8")

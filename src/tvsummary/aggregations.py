@@ -1,45 +1,70 @@
+# Polymorphic aggregation classes.
+class Aggregation:
+    """Base class for TV show aggregations."""
 
-def shows_per_genre(records): 
-    """Returns the number of shows belonging to each genre """
-    counts = {}
-    for record in records:
-        genres = record["genres"]
+    def __init__(self, name):
+        self.name = name
 
-        for genre in genres:
-            counts[genre] = counts.get(genre, 0) + 1
-    return counts
+    def calculate(self, records):
+        """Calculate a summary value."""
+        raise NotImplementedError("Subclasses must implement calculate().")
 
-def total_shows(records):
-    """Return the total number of TV show records."""
-    return len(records)
+class TotalShows(Aggregation):
+    """Count the total number of TV shows."""
 
-def average_rating_language(records):
-    """Return the average show rating for each language."""
-    ratings = {}
+    def __init__(self):
+        super().__init__("total_shows")
 
-    for record in records:
-        language = record.get("language")
-        rating = record.get("rating", {}).get("average")
+    def calculate(self, records):
+        return len(records)
 
-        if not language or not isinstance(rating, (int, float)):
-            continue
+class ShowsPerGenre(Aggregation):
+    """Count how many TV shows belong to each genre."""
 
-        if language not in ratings:
-            ratings[language] = []
+    def __init__(self):
+        super().__init__("shows_per_genre")
 
-        ratings[language].append(rating)
+    def calculate(self, records):
+        counts = {}
 
-    averages = {}
+        for show in records:
+            for genre in show.genres:
+                counts[genre] = counts.get(genre, 0) + 1
 
-    for language, values in ratings.items():
-        averages[language] = sum(values) / len(values)
+        return counts
+    
+class AverageRatingLanguage(Aggregation):
+    """Calculate the average rating for each language."""
 
-    return averages
+    def __init__(self):
+        super().__init__("average_rating_language")
 
-def unique_languages(records):
-    """Return a set of unique languages in the TV show records."""
-    return {
-        record["language"]
-        for record in records
-        if record.get("language")
-    }
+    def calculate(self, records):
+        totals = {}
+        counts = {}
+
+        for show in records:
+            if show.language == "Unknown" or show.rating is None:
+                continue
+
+            language = show.language
+            totals[language] = totals.get(language, 0) + show.rating
+            counts[language] = counts.get(language, 0) + 1
+
+        return {
+            language: totals[language] / counts[language]
+            for language in totals
+        }
+
+class UniqueLanguages(Aggregation):
+    """Collect the unique languages in the TV show records."""
+
+    def __init__(self):
+        super().__init__("unique_languages")
+
+    def calculate(self, records):
+        return sorted({
+            show.language
+            for show in records
+            if show.language != "Unknown"
+        })
