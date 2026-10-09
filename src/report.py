@@ -6,6 +6,7 @@ from src.aggregations import (
     total_shows,
     average_rating_language
 )
+from src.aggregations import unique_languages
 
 def build_summary(records):
     """Combine the aggregations into one dict ready to write."""
@@ -14,8 +15,8 @@ def build_summary(records):
     summary["shows_per_genre"] = shows_per_genre(records)
     summary["total_shows"] = total_shows(records)
     summary["average_rating_language"] = average_rating_language(records)
+    summary["unique_languages"] = sorted(unique_languages(records))    
     return summary
-
 
 def write_summary(summary,path):
     """Write the summary to a JSON file."""

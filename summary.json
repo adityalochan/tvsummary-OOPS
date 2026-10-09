@@ -25,5 +25,12 @@
     "Sports": 2
   },
   "total_shows": 240,
-  "average_rating_language": 7.5855932203389855
+  "average_rating_language": {
+    "English": 7.5806034482758635,
+    "Japanese": 7.875
+  },
+  "unique_languages": [
+    "English",
+    "Japanese"
+  ]
 }

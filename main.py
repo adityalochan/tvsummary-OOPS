@@ -14,6 +14,5 @@ def main():
     summary = build_summary(records)
     write_summary(summary, OUTPUT)
 
-
 if __name__ == "__main__":
     main()

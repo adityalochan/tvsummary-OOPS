@@ -10,16 +10,36 @@ def shows_per_genre(records):
     return counts
 
 def total_shows(records):
+    """Return the total number of TV show records."""
     return len(records)
 
 def average_rating_language(records):
-    """Returns the overall average rating of shows."""
-    total , count = 0, 0
-    
-    for record in records:
-        rating = record["rating"]["average"]
+    """Return the average show rating for each language."""
+    ratings = {}
 
-        if rating is not None:
-            count += 1
-            total += rating
-    return total / count  
+    for record in records:
+        language = record.get("language")
+        rating = record.get("rating", {}).get("average")
+
+        if not language or not isinstance(rating, (int, float)):
+            continue
+
+        if language not in ratings:
+            ratings[language] = []
+
+        ratings[language].append(rating)
+
+    averages = {}
+
+    for language, values in ratings.items():
+        averages[language] = sum(values) / len(values)
+
+    return averages
+
+def unique_languages(records):
+    """Return a set of unique languages in the TV show records."""
+    return {
+        record["language"]
+        for record in records
+        if record.get("language")
+    }
