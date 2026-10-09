@@ -1,4 +1,4 @@
-from tvsummary import SOURCE_URL, OUTPUT
+from tvsummary.config import SOURCE_URL, OUTPUT
 from tvsummary import TVMazeSource
 from tvsummary import build_summary, write_summary
 

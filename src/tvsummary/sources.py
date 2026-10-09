@@ -1,6 +1,6 @@
 import requests
 
-from tvsummary import TIMEOUT
+from tvsummary.config import TIMEOUT
 from tvsummary import TVShow
 
 class TVMazeSource:

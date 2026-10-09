@@ -1,6 +1,6 @@
 import json
 
-from tvsummary import SOURCE_URL
+from tvsummary.config import SOURCE_URL
 from tvsummary import (
     TotalShows,
     ShowsPerGenre,
