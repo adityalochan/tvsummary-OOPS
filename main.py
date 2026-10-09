@@ -1,6 +1,6 @@
-from tvsummary.config import SOURCE_URL, OUTPUT
-from tvsummary.sources import TVMazeSource
-from tvsummary.report import build_summary, write_summary
+from tvsummary import SOURCE_URL, OUTPUT
+from tvsummary import TVMazeSource
+from tvsummary import build_summary, write_summary
 
 
 def main():

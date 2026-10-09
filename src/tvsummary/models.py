@@ -1,6 +1,3 @@
-from tvsummary.report import build_summary, write_summary
-from tvsummary.config import SOURCE_URL, OUTPUT
-
 class TVShow:
     """Represent one TV show with cleaned data."""
 

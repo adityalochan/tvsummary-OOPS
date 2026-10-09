@@ -137,15 +137,9 @@ The previously submitted dataset contains 240 TV show records.
 
 **Missing genres:** Some shows may have an empty or missing genre list. The `TVShow` class converts missing or malformed genre values to an empty list. Shows without genres do not contribute to genre counts but are still included in the total show count.
 
-Count to verify: [number of shows without genres].
-
 **Missing ratings:** Some shows have no average rating. The `TVShow` class stores missing or invalid ratings as `None`. These shows are excluded from language-average calculations but remain included in the total show count.
 
-Count to verify: [number of shows without valid ratings].
-
 **Missing languages:** The `TVShow` class replaces missing language values with `"Unknown"`. Records with unknown languages are excluded from language-average calculations and the unique-language list.
-
-Count to verify: [number of shows without languages].
 
 The missing-value counts should be calculated from the same dataset used to generate the submitted `summary.json`.
 
@@ -160,8 +154,8 @@ tvsummary-OOPS/
 ├── .gitignore
 ├── main.py
 ├── data/
-│   └── summary.json
 │   └── .gitkeep
+│   └── summary.json
 ├── src/
 │   └── tvsummary/
 │       ├── __init__.py
@@ -186,6 +180,22 @@ tvsummary-OOPS/
 - `tests/test_models.py`: Contains offline unit tests.
 - `data/raw/`: Reserved for raw data.
 - `data/processed/`: Contains the generated JSON summary.
+
+## What moved where
+
+The original Lab 02 functions were reorganized into classes and modules for Lab 03.
+
+| Lab 02 function | Lab 03 location |
+|---|---|
+| `fetch_records()` | `TVMazeSource.fetch_records()` in `sources.py` |
+| `total_shows()` | `TotalShows.calculate()` in `aggregations.py` |
+| `shows_per_genre()` | `ShowsPerGenre.calculate()` in `aggregations.py` |
+| `average_rating_language()` | `AverageRatingLanguage.calculate()` in `aggregations.py` |
+| `unique_languages()` | `UniqueLanguages.calculate()` in `aggregations.py` |
+| `build_summary()` | `build_summary()` in `report.py` |
+| `write_summary()` | `write_summary()` in `report.py` |
+
+Missing-value checks previously performed during aggregation are now handled in `TVShow.__init__()` in `models.py`.
 
 ## Design choices
 

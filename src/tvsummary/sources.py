@@ -1,7 +1,7 @@
 import requests
 
-from tvsummary.config import TIMEOUT
-from tvsummary.models import TVShow
+from tvsummary import TIMEOUT
+from tvsummary import TVShow
 
 class TVMazeSource:
     """Download TV shows from the TVMaze API."""

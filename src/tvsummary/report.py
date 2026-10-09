@@ -1,7 +1,7 @@
 import json
 
-from tvsummary.config import SOURCE_URL
-from tvsummary.aggregations import (
+from tvsummary import SOURCE_URL
+from tvsummary import (
     TotalShows,
     ShowsPerGenre,
     AverageRatingLanguage,
@@ -27,4 +27,5 @@ def build_summary(records):
 
 def write_summary(summary, path):
     """Write the summary to a JSON file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
