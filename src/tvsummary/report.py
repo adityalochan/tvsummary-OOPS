@@ -11,15 +11,14 @@ from tvsummary.aggregations import (
     TotalShows,
     UniqueLanguages,
 )
-from tvsummary.config import SOURCE_URL
 from tvsummary.models import TVShow
 
 logger = logging.getLogger(__name__)
 
 
-def build_summary(records: list[TVShow]) -> dict[str, Any]:
+def build_summary(records: list[TVShow], source_url: str) -> dict[str, Any]:
     """Calculate the summary from the TV show records."""
-    summary: dict[str, Any] = {"url": SOURCE_URL}
+    summary: dict[str, Any] = {"url": source_url}
 
     aggregations = [
         ShowsPerGenre(),
