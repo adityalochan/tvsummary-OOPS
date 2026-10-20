@@ -9,6 +9,7 @@ class Aggregation:
         """Calculate a summary value."""
         raise NotImplementedError("Subclasses must implement calculate().")
 
+
 class TotalShows(Aggregation):
     """Count the total number of TV shows."""
 
@@ -17,6 +18,7 @@ class TotalShows(Aggregation):
 
     def calculate(self, records):
         return len(records)
+
 
 class ShowsPerGenre(Aggregation):
     """Count how many TV shows belong to each genre."""
@@ -32,7 +34,8 @@ class ShowsPerGenre(Aggregation):
                 counts[genre] = counts.get(genre, 0) + 1
 
         return counts
-    
+
+
 class AverageRatingLanguage(Aggregation):
     """Calculate the average rating for each language."""
 
@@ -51,10 +54,8 @@ class AverageRatingLanguage(Aggregation):
             totals[language] = totals.get(language, 0) + show.rating
             counts[language] = counts.get(language, 0) + 1
 
-        return {
-            language: totals[language] / counts[language]
-            for language in totals
-        }
+        return {language: totals[language] / counts[language] for language in totals}
+
 
 class UniqueLanguages(Aggregation):
     """Collect the unique languages in the TV show records."""
@@ -63,8 +64,4 @@ class UniqueLanguages(Aggregation):
         super().__init__("unique_languages")
 
     def calculate(self, records):
-        return sorted({
-            show.language
-            for show in records
-            if show.language != "Unknown"
-        })
+        return sorted({show.language for show in records if show.language != "Unknown"})

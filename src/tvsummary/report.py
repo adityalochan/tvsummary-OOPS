@@ -1,12 +1,13 @@
 import json
 
-from tvsummary.config import SOURCE_URL
 from tvsummary import (
-    TotalShows,
-    ShowsPerGenre,
     AverageRatingLanguage,
+    ShowsPerGenre,
+    TotalShows,
     UniqueLanguages,
 )
+from tvsummary.config import SOURCE_URL
+
 
 def build_summary(records):
     """Build a summary using aggregation objects."""

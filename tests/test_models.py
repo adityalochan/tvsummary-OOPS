@@ -1,12 +1,12 @@
 import unittest
 
-from tvsummary.models import TVShow
 from tvsummary.aggregations import (
-    TotalShows,
-    ShowsPerGenre,
     AverageRatingLanguage,
+    ShowsPerGenre,
+    TotalShows,
     UniqueLanguages,
 )
+from tvsummary.models import TVShow
 
 
 class TestTVShow(unittest.TestCase):
@@ -48,24 +48,30 @@ class TestAggregations(unittest.TestCase):
 
     def setUp(self):
         self.records = [
-            TVShow({
-                "name": "Show A",
-                "language": "English",
-                "genres": ["Drama", "Comedy"],
-                "rating": {"average": 8.0},
-            }),
-            TVShow({
-                "name": "Show B",
-                "language": "English",
-                "genres": ["Drama"],
-                "rating": {"average": 6.0},
-            }),
-            TVShow({
-                "name": "Show C",
-                "language": "Japanese",
-                "genres": ["Action"],
-                "rating": {"average": 9.0},
-            }),
+            TVShow(
+                {
+                    "name": "Show A",
+                    "language": "English",
+                    "genres": ["Drama", "Comedy"],
+                    "rating": {"average": 8.0},
+                }
+            ),
+            TVShow(
+                {
+                    "name": "Show B",
+                    "language": "English",
+                    "genres": ["Drama"],
+                    "rating": {"average": 6.0},
+                }
+            ),
+            TVShow(
+                {
+                    "name": "Show C",
+                    "language": "Japanese",
+                    "genres": ["Action"],
+                    "rating": {"average": 9.0},
+                }
+            ),
         ]
 
     def test_total_shows(self):
