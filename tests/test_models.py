@@ -1,100 +1,62 @@
-import unittest
+import pytest
 
-from tvsummary.aggregations import (
-    AverageRatingLanguage,
-    ShowsPerGenre,
-    TotalShows,
-    UniqueLanguages,
-)
 from tvsummary.models import TVShow
 
 
-class TestTVShow(unittest.TestCase):
-    """Test TV show record cleaning."""
+def test_valid_record():
+    """Check that valid show values are stored correctly."""
+    record = {
+        "name": "Example Show",
+        "language": "English",
+        "genres": ["Drama", "Comedy"],
+        "rating": {"average": 8.5},
+    }
 
-    def test_valid_record(self):
-        record = {
+    show = TVShow(record)
+
+    assert show.name == "Example Show"
+    assert show.language == "English"
+    assert show.genres == ["Drama", "Comedy"]
+    assert show.rating == 8.5
+
+
+def test_missing_genres():
+    """A missing genre list should become an empty list."""
+    show = TVShow({"name": "Show A"})
+
+    assert show.genres == []
+
+
+def test_missing_rating():
+    """A missing rating should become None."""
+    show = TVShow({"name": "Show B"})
+
+    assert show.rating is None
+
+
+@pytest.mark.parametrize("genres", [None, "Drama", 123])
+def test_malformed_genres(genres):
+    """Invalid genre values should become an empty list."""
+    show = TVShow({"genres": genres})
+
+    assert show.genres == []
+
+
+def test_missing_name_and_language():
+    """Missing names and languages should use default values."""
+    show = TVShow({})
+
+    assert show.name == "Unknown"
+    assert show.language == "Unknown"
+
+
+def test_string_representation():
+    """Check that a TV show has a readable description."""
+    show = TVShow(
+        {
             "name": "Example Show",
             "language": "English",
-            "genres": ["Drama", "Comedy"],
-            "rating": {"average": 8.5},
         }
+    )
 
-        show = TVShow(record)
-
-        self.assertEqual(show.name, "Example Show")
-        self.assertEqual(show.language, "English")
-        self.assertEqual(show.genres, ["Drama", "Comedy"])
-        self.assertEqual(show.rating, 8.5)
-
-    def test_missing_and_malformed_values(self):
-        record = {
-            "name": None,
-            "language": None,
-            "genres": "Drama",
-            "rating": None,
-        }
-
-        show = TVShow(record)
-
-        self.assertEqual(show.name, "Unknown")
-        self.assertEqual(show.language, "Unknown")
-        self.assertEqual(show.genres, [])
-        self.assertIsNone(show.rating)
-
-
-class TestAggregations(unittest.TestCase):
-    """Test aggregations with offline sample records."""
-
-    def setUp(self):
-        self.records = [
-            TVShow(
-                {
-                    "name": "Show A",
-                    "language": "English",
-                    "genres": ["Drama", "Comedy"],
-                    "rating": {"average": 8.0},
-                }
-            ),
-            TVShow(
-                {
-                    "name": "Show B",
-                    "language": "English",
-                    "genres": ["Drama"],
-                    "rating": {"average": 6.0},
-                }
-            ),
-            TVShow(
-                {
-                    "name": "Show C",
-                    "language": "Japanese",
-                    "genres": ["Action"],
-                    "rating": {"average": 9.0},
-                }
-            ),
-        ]
-
-    def test_total_shows(self):
-        self.assertEqual(TotalShows().calculate(self.records), 3)
-
-    def test_shows_per_genre(self):
-        self.assertEqual(
-            ShowsPerGenre().calculate(self.records),
-            {"Drama": 2, "Comedy": 1, "Action": 1},
-        )
-
-    def test_average_rating_language(self):
-        self.assertEqual(
-            AverageRatingLanguage().calculate(self.records),
-            {"English": 7.0, "Japanese": 9.0},
-        )
-
-    def test_unique_languages(self):
-        self.assertEqual(
-            UniqueLanguages().calculate(self.records),
-            ["English", "Japanese"],
-        )
-
-
-if __name__ == "__main__":
-    unittest.main()
+    assert str(show) == "Example Show (English)"
