@@ -1,7 +1,10 @@
+from typing import Any
+
+
 class TVShow:
     """Represent one TV show with cleaned data."""
 
-    def __init__(self, record):
+    def __init__(self, record: dict[str, Any]) -> None:
         self.name = record.get("name") or "Unknown"
         self.language = record.get("language") or "Unknown"
 
@@ -12,6 +15,6 @@ class TVShow:
         average = rating.get("average") if isinstance(rating, dict) else None
         self.rating = average if isinstance(average, (int, float)) else None
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return a readable description of the TV show."""
         return f"{self.name} ({self.language})"

@@ -26,11 +26,18 @@
   },
   "total_shows": 240,
   "average_rating_language": {
-    "English": 7.5806034482758635,
+    "English": 7.578017241379312,
     "Japanese": 7.875
   },
   "unique_languages": [
     "English",
     "Japanese"
+  ],
+  "featured_shows": [
+    "How I Met Your Mother",
+    "American Horror Story",
+    "Homeland",
+    "The Fosters",
+    "The Walking Dead"
   ]
 }

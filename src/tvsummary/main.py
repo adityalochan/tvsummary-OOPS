@@ -9,6 +9,7 @@ from pathlib import Path
 from tvsummary.errors import TVSummaryError
 from tvsummary.logging_setup import configure_logging
 from tvsummary.report import build_summary, write_summary
+from tvsummary.run_info import write_run_info
 from tvsummary.settings import load_settings
 from tvsummary.sources import TVMazeSource
 
@@ -44,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
 
         output_path = settings.output_folder / "summary.json"
         write_summary(summary, output_path)
+        write_run_info(settings, settings.output_folder)
 
         logger.info("Processed %s TV shows", len(records))
         return 0
