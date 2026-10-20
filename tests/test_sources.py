@@ -18,7 +18,7 @@ def test_download_failure(monkeypatch):
     monkeypatch.setattr("tvsummary.sources.requests.get", fake_get)
 
     with pytest.raises(DownloadError, match="Could not download"):
-        TVMazeSource("https://example.com/shows").fetch_records()
+        TVMazeSource("https://example.com/shows", 10.0).fetch_records()
 
 
 def test_invalid_json(monkeypatch):
@@ -33,8 +33,7 @@ def test_invalid_json(monkeypatch):
     )
 
     with pytest.raises(MalformedResponseError, match="invalid JSON"):
-        TVMazeSource("https://example.com/shows").fetch_records()
-
+        TVMazeSource("https://example.com/shows", 10.0).fetch_records()
 
 def test_invalid_response_structure(monkeypatch):
     """A JSON object is not a valid list of show records."""
@@ -48,4 +47,4 @@ def test_invalid_response_structure(monkeypatch):
     )
 
     with pytest.raises(MalformedResponseError, match="must be a list"):
-        TVMazeSource("https://example.com/shows").fetch_records()
+        TVMazeSource("https://example.com/shows", 10.0).fetch_records()

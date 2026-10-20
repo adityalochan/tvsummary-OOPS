@@ -5,7 +5,6 @@ from typing import Any
 
 import requests
 
-from tvsummary.config import TIMEOUT
 from tvsummary.errors import DownloadError, MalformedResponseError
 from tvsummary.models import TVShow
 
@@ -15,7 +14,7 @@ logger = logging.getLogger(__name__)
 class TVMazeSource:
     """Download TV shows from the TVMaze API."""
 
-    def __init__(self, url: str, timeout: float = TIMEOUT) -> None:
+    def __init__(self, url: str, timeout: float) -> None:
         self.url = url
         self.timeout = timeout
 
