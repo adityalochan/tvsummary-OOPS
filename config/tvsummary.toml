@@ -1,0 +1,7 @@
+[app]
+source_url = "https://api.tvmaze.com/shows?page=0"
+timeout = 10.0
+output_folder = "data/processed"
+random_seed = 42
+sample_size = 5
+log_level = "INFO"
