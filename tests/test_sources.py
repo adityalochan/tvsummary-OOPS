@@ -35,6 +35,7 @@ def test_invalid_json(monkeypatch):
     with pytest.raises(MalformedResponseError, match="invalid JSON"):
         TVMazeSource("https://example.com/shows", 10.0).fetch_records()
 
+
 def test_invalid_response_structure(monkeypatch):
     """A JSON object is not a valid list of show records."""
     response = Mock()
